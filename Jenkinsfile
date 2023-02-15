@@ -1,6 +1,12 @@
 pipeline {
     agent any
     stages {
+        stage('Clean workspace') {
+            steps {
+                println("###clearing worspace###")
+                cleanWs()
+            }
+        }        
         stage('Clone repository') {
             steps {
                 git 'https://github.com/masnawi-rahmat/jenkins-pipeline-mavensample.git'
@@ -19,7 +25,9 @@ pipeline {
         }
         stage('Push Docker image') {
             steps {
-                sh 'docker push my-maven-app'
+                sh 'ls'
+                sh 'docker rmi my-maven-app'
+                //sh 'docker push my-maven-app'
             }
         }
     }
