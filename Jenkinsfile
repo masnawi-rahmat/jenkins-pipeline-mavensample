@@ -1,12 +1,12 @@
 pipeline {
     agent any
     stages {
-        stage('Clean workspace') {
+        /*stage('Clean workspace') {
             steps {
                 println("###clearing worspace###")
                 cleanWs()
             }
-        }        
+        }*/        
         /*stage('Clone repository') {
             steps {
                 git 'https://github.com/masnawi-rahmat/jenkins-pipeline-mavensample.git'
