@@ -7,12 +7,12 @@ pipeline {
                 cleanWs()
             }
         }        
-        /*stage('Clone repository') {
+        stage('Clone repository') {
             steps {
                 git 'https://github.com/masnawi-rahmat/jenkins-pipeline-mavensample.git'
                 //git 'https://github.com/user/my-maven-app.git'
             }
-        }*/
+        }
         stage('Build with Maven') {
             steps {
                 sh 'mvn clean install'
