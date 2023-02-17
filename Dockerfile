@@ -25,8 +25,8 @@ WORKDIR /app
 # Copy the JAR file built in the previous stage to the container
 COPY --from=build /app/target/my-app-*.jar /app/my-app.jar
 
-# Expose port 8030
-EXPOSE 8030
+# Expose port 8008
+EXPOSE 8008
 
 # Start the application
 CMD ["java", "-jar", "my-app.jar"]
