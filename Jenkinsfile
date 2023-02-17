@@ -16,7 +16,7 @@ pipeline {
         
         stage('Deploy') {
             steps {
-                sh 'docker run -d -p 8008:8008 my-app'
+                sh 'docker run -d -p 8081:8008 my-app'
             }
         }
     }
