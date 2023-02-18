@@ -1,4 +1,8 @@
-FROM tomcat:9-jdk11-openjdk-slim
-COPY target/hello-world.war /usr/local/tomcat/webapps/
+FROM openjdk:8-jre-alpine
+
+COPY target/my-app-1.0-SNAPSHOT.jar /app.jar
+
+CMD ["java", "-jar", "/app.jar"]
+
 EXPOSE 8080
 
