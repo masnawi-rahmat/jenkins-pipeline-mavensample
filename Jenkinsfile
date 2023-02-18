@@ -12,7 +12,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh 'docker build -t myapp .'
-                sh 'docker run -d -p 8081:8080 myapp'
+                sh 'docker run -d -p 8081:8081 myapp'
             }
         }
     }
