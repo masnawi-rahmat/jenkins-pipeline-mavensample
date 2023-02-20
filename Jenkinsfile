@@ -1,19 +1,26 @@
 pipeline {
-    agent any
-    /*tools {
-        maven 'Maven 3.6.3'
-    }*/
-    stages {
-        stage('Build') {
-            steps {
-                sh 'mvn clean package'
-            }
+  agent any
+  stages {
+    stage('Build') {
+      steps {
+        sh 'mvn package'
+      }
+      post {
+        success {
+          archiveArtifacts 'target/*.jar'
         }
-        stage('Deploy') {
-            steps {
-                sh 'docker build -t myapp .'
-                sh 'docker run -d -p 8081:8081 myapp'
-            }
-        }
+      }
     }
+    stage('Deploy') {
+      steps {
+        withDockerRegistry([url: '', credentialsId: '']) {
+          docker.withRegistry('', '') {
+            def image = docker.build("my-app:${env.BUILD_NUMBER}")
+            image.push()
+          }
+        }
+      }
+    }
+  }
 }
+
