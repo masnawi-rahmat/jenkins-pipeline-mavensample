@@ -13,14 +13,17 @@ pipeline {
     }
     stage('Deploy') {
       steps {
-        withDockerRegistry([url: 'https://hub.docker.com/repository/docker/masnawirahmat/masdockerhub', credentialsId: 'mydockerhub']) {
-          docker.withRegistry('', '') {
-            def image = docker.build("my-app:${env.BUILD_NUMBER}")
-            image.push()
+        script {
+          withDockerRegistry([url: '', credentialsId: '']) {
+            docker.withRegistry('', '') {
+              def image = docker.build("my-app:${env.BUILD_NUMBER}")
+              image.push()
+            }
           }
         }
       }
     }
   }
 }
+
 
