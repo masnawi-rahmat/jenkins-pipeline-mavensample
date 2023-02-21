@@ -15,10 +15,10 @@ pipeline {
     stage('Deploy') {
       steps {
         script {
-          def image = docker.build("my-app:${env.BUILD_NUMBER}")
+          //def image = docker.build("my-app:${env.BUILD_NUMBER}")
           withCredentials([usernamePassword(credentialsId: 'mydockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
             sh "echo $PASSWORD | docker login registry-1.docker.io/v1 --username $USERNAME --password-stdin"
-            image.push()
+            image.push("masnawi.rahmat/my-app:${env.BUILD_NUMBER})
             sh "docker logout"
             }
           }
