@@ -18,6 +18,14 @@ pipeline {
             docker.withRegistry('', '') {
               def image = docker.build("my-app:${env.BUILD_NUMBER}")
               image.push()
+           docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-credentials-id') {
+           def image = docker.build("my-app:${env.BUILD_NUMBER}")
+           withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials-id', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+             docker.withRegistry("https://index.docker.io/v1/", "Docker Hub") {
+               def image = docker.build("my-app:${env.BUILD_NUMBER}")
+               sh "echo $PASSWORD | docker login --username $USERNAME --password-stdin"
+               image.push()
+               sh "docker logout"
             }
           }
         }
