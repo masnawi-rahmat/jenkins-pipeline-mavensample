@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh 'mvn package-Dmaven.clean.failOnError=false'
+        sh 'mvn package -Dmaven.clean.failOnError=false'
       }
       post {
         success {
