@@ -1,8 +1,6 @@
 pipeline {
   agent any
-  environment {
-    dockerhub=credentials('mydockerhub')
-  stages {
+    stages {
     stage('Build') {
       steps {
         sh 'mvn package -Dmaven.clean.failOnError=false'
@@ -17,7 +15,7 @@ pipeline {
       steps {
         script {
           def image = docker.build("my-app:${env.BUILD_NUMBER}")
-          withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials-id', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+          withCredentials([usernamePassword(credentialsId: 'mydockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
             sh "echo $PASSWORD | docker login --username $USERNAME --password-stdin"
             image.push()
             sh "docker logout"
@@ -27,6 +25,6 @@ pipeline {
       }
     }
   }
-}
+
 
 
