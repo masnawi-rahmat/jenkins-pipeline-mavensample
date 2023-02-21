@@ -13,13 +13,22 @@ pipeline {
       }
     }
     stage('Deploy') {
-      steps {
+    steps {
         script {
-          //def image = docker.build("my-app:${env.BUILD_NUMBER}")
-          withCredentials([usernamePassword(credentialsId: 'mydockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-            sh "echo $PASSWORD | docker login registry-1.docker.io/v1 --username $USERNAME --password-stdin"
-            image.push("masnawi.rahmat/my-app:${env.BUILD_NUMBER})
-            sh "docker logout"
+            def dockerImage = 'my-app'
+            def dockerImageTag = "${dockerImage}:${env.BUILD_NUMBER}"
+            def dockerRegistry = 'docker.io/v1/'
+            def dockerRepo = 'your-dockerhub-username/my-app'
+
+            withCredentials([usernamePassword(credentialsId: 'mydockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                sh "echo $PASSWORD | docker login --username $USERNAME --password-stdin ${dockerRegistry}"
+                sh "docker tag ${dockerImageTag} ${dockerRegistry}/${dockerRepo}:${env.BUILD_NUMBER}"
+                sh "docker push ${dockerRegistry}/${dockerRepo}:${env.BUILD_NUMBER}"
+                sh "docker logout"
+            }
+        }
+    }
+}
             }
           }
         }
