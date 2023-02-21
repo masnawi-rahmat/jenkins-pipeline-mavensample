@@ -26,15 +26,13 @@ pipeline {
                 sh "docker push ${dockerRegistry}/${dockerRepo}:${env.BUILD_NUMBER}"
                 sh "docker logout"
             }
-        }
-    }
-}
-            }
           }
         }
       }
     }
   }
+
+
 
 
 
