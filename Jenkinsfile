@@ -16,9 +16,9 @@ pipeline {
     steps {
         script {
             def dockerImage = 'my-app'
-            def dockerImageTag = "${dockerImage}:${env.BUILD_NUMBER}"
+            def dockerImageTag = "${dockerImag}:${env.BUILD_NUMBER}"
             def dockerRegistry = 'docker.io/v1/'
-            def dockerRepo = 'your-dockerhub-username/my-app'
+            def dockerRepo = 'masnawirahmat/my-app'
 
             withCredentials([usernamePassword(credentialsId: 'mydockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                 sh "echo $PASSWORD | docker login --username $USERNAME --password-stdin ${dockerRegistry}"
