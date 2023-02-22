@@ -27,7 +27,7 @@ pipeline {
                 //sh "docker tag ${dockerImage} ${dockerRegistry}/${dockerRepo}/${dockerImage}:${env.BUILD_NUMBER}"
                 sh "docker tag ${dockerImage} ${dockerRepo}/${dockerImage}:${env.BUILD_NUMBER}"
                 //sh "docker push ${dockerRegistry}/${dockerRepo}/${dockerImage}:${env.BUILD_NUMBER}"
-                sh "docker push               
+                sh "docker push ${dockerRepo}/${dockerImage}:${env.BUILD_NUMBER}"               
                 sh "docker logout"
             }
           }
