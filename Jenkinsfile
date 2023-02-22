@@ -21,6 +21,7 @@ pipeline {
             def dockerImageTag = "${env.BUILD_NUMBER}"
             def dockerRegistry = 'docker.io/v1'
             def dockerRepo = 'masnawirahmat'
+            def dockerSubRepo = 'masdockerhub'
 
             withCredentials([usernamePassword(credentialsId: 'mydockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                 sh "echo $PASSWORD | docker login --username $USERNAME --password-stdin ${dockerRegistry}"
