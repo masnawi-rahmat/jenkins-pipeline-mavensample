@@ -4,7 +4,7 @@ pipeline {
     stage('Build') {
       steps {
         //sh 'mvn package -Dmaven.clean.failOnError=false'
-        sh 'mvn package'
+       sh 'mvn package'
         sh "docker build -t my-app . "
       }
       post {
