@@ -27,7 +27,7 @@ pipeline {
 
             //def dockerPass = credentials('your-docker-hub-credentials-id')
 
-            def dockerImage = "${dockerUser}/${app}:${version}"
+            //def dockerImage = "${dockerUser}/${app}:${version}"
 
             withCredentials([usernamePassword(credentialsId: 'mydockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                 sh "echo $PASSWORD | docker login --username $USERNAME --password-stdin ${dockerRegistry}"
