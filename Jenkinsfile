@@ -24,8 +24,10 @@ pipeline {
 
             withCredentials([usernamePassword(credentialsId: 'mydockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                 sh "echo $PASSWORD | docker login --username $USERNAME --password-stdin ${dockerRegistry}"
-                sh "docker tag ${dockerImage} ${dockerRegistry}/${dockerRepo}/${dockerImage}:${env.BUILD_NUMBER}"
-                sh "docker push ${dockerRegistry}/${dockerRepo}/${dockerImage}:${env.BUILD_NUMBER}"
+                //sh "docker tag ${dockerImage} ${dockerRegistry}/${dockerRepo}/${dockerImage}:${env.BUILD_NUMBER}"
+                sh "docker tag ${dockerImage} ${dockerRepo}/${dockerImage}:${env.BUILD_NUMBER}"
+                //sh "docker push ${dockerRegistry}/${dockerRepo}/${dockerImage}:${env.BUILD_NUMBER}"
+                sh "docker push               
                 sh "docker logout"
             }
           }
@@ -33,8 +35,3 @@ pipeline {
       }
     }
   }
-
-
-
-
-
