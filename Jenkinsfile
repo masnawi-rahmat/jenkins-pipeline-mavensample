@@ -15,7 +15,7 @@ pipeline {
     stage('Deploy') {
     steps {
         script {
-            sh "docker build -t my-app ."
+            //sh "docker build -t my-app ."
             def dockerImage = 'my-app'
             def dockerImageTag = "${dockerImage}:${env.BUILD_NUMBER}"
             def dockerRegistry = 'docker.io/v1'
