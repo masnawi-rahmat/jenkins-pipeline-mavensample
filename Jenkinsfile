@@ -23,18 +23,18 @@ pipeline {
 
             def dockerRegistry = 'docker.io'
 
-            def dockerUser = 'your-docker-hub-username'
+            def dockerUser = 'masnawirahmat'
 
-            def dockerPass = credentials('your-docker-hub-credentials-id')
+            //def dockerPass = credentials('your-docker-hub-credentials-id')
 
             def dockerImage = "${dockerUser}/${app}:${version}"
 
             withCredentials([usernamePassword(credentialsId: 'mydockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                 sh "echo $PASSWORD | docker login --username $USERNAME --password-stdin ${dockerRegistry}"
-                //sh "docker tag ${dockerImage} ${dockerRegistry}/${dockerRepo}/${dockerImage}:${env.BUILD_NUMBER}"
-                sh "docker tag ${dockerImage} ${dockerRegistry}/${dockerRepo}:${dockerImage}-${dockerImageTag}"
-                //sh "docker push ${dockerRegistry}/${dockerRepo}/${dockerImage}:${env.BUILD_NUMBER}"
-                sh "docker push ${dockerRegistry}/${dockerRepo}:${dockerImage}-${dockerImageTag}"               
+                sh "docker tag ${app} ${dockerUser}/${app}:${version}"
+                //sh "docker tag ${dockerImage} ${dockerRegistry}/${dockerRepo}:${dockerImage}-${dockerImageTag}"
+                sh "docker push ${dockerUser}/${app}:${env.BUILD_NUMBER}"
+                //sh "docker push ${dockerRegistry}/${dockerRepo}:${dockerImage}-${dockerImageTag}"               
                 sh "docker logout"
             }
           }
