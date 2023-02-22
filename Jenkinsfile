@@ -3,10 +3,11 @@ pipeline {
     stages {
     stage('Build') {
       steps {
-        //sh 'mvn package -Dmaven.clean.failOnError=false'
-       sh 'mvn package'
-        sh "docker build -t my-app . "
+      //sh 'mvn package -Dmaven.clean.failOnError=false'
+        sh 'mvn package'
+      //sh "docker build -t my-app . "
       }
+        }
       post {
         success {
           archiveArtifacts 'target/*.jar'
