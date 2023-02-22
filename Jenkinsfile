@@ -5,6 +5,7 @@ pipeline {
       steps {
         //sh 'mvn package -Dmaven.clean.failOnError=false'
         sh 'mvn package'
+        sh "docker build -t my-app . "
       }
       post {
         success {
