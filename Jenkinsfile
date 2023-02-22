@@ -17,11 +17,17 @@ pipeline {
     steps {
         script {
             //sh "docker build -t my-app ."
-            def dockerImage = 'my-app'
-            def dockerImageTag = "${env.BUILD_NUMBER}"
-            def dockerRegistry = 'docker.io/v1'
-            def dockerRepo = 'masnawirahmat'
-            def dockerSubRepo = 'masdockerhub'
+            def app = 'my-app'
+
+            def version = env.BUILD_NUMBER
+
+            def dockerRegistry = 'docker.io'
+
+            def dockerUser = 'your-docker-hub-username'
+
+            def dockerPass = credentials('your-docker-hub-credentials-id')
+
+            def dockerImage = "${dockerUser}/${app}:${version}"
 
             withCredentials([usernamePassword(credentialsId: 'mydockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                 sh "echo $PASSWORD | docker login --username $USERNAME --password-stdin ${dockerRegistry}"
