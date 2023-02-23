@@ -15,20 +15,14 @@ pipeline {
     }
     stage('Deploy') {
     steps {
-        script {
-            //sh "docker build -t my-app ."
-            def app = 'my-app'
-
+       script {
+          //sh "docker build -t my-app ."
+          def app = 'my-app'
             def version = env.BUILD_NUMBER
-
             def dockerRegistry = 'docker.io'
-
             def dockerUser = 'masnawirahmat'
-
             //def dockerPass = credentials('your-docker-hub-credentials-id')
-
             //def dockerImage = "${dockerUser}/${app}:${version}"
-
             withCredentials([usernamePassword(credentialsId: 'mydockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                 sh "echo $PASSWORD | docker login --username $USERNAME --password-stdin ${dockerRegistry}"
                 sh "docker tag ${app} ${dockerUser}/${app}:${version}"
@@ -42,4 +36,3 @@ pipeline {
       }
     }
   }
-
